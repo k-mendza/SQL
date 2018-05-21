@@ -1,0 +1,1 @@
+DROP DATABASE db_example_name; - delete db db_example_name
