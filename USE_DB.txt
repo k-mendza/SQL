@@ -1,0 +1,7 @@
+To use specific database on the server: 
+
+USE database; 
+
+To see which db is currently selected: 
+
+SELECT database();
