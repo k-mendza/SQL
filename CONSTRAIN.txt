@@ -1,0 +1,4 @@
+Constrain is to perserve relations between tables of the database. 
+
+    ADD CONSTRAINT "CONSTRAIN_NAME" FOREIGN KEY (FK_NAME)
+    REFERENCES DB_NAME.REF_TABLE_NAME (REF_COLUMN) MATCH SIMPLE
