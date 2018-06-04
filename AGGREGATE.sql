@@ -47,3 +47,17 @@ WHERE
 			MAX(pages)
 		FROM
 			books);
+-- find the year of first release
+SELECT author_fname, author_lname, MIN(released_year)
+FROM books
+GROUP BY author_lname,author_fname;
+-- find length of the longest book of each author
+SELECT author_fname,author_lname, MAX(pages)
+FROM books
+GROUP BY author_lname, author_fname;
+-- find length of the longest book of each author with aliases
+SELECT 
+	CONCAT(author_fname, ' ',author_lname) AS author,
+	MAX(pages) AS book_length
+FROM books
+GROUP BY author_lname, author_fname;
