@@ -102,3 +102,18 @@ GROUP BY
 	released_year
 ORDER BY
 	released_year;
+-- ********* LOGICAL FUNCTIONS *********
+-- != not equal to 
+SELECT title FROM books WHERE released_year != 2000;
+-- NOT LIKE opposite of LIKE
+SELECT title FROM books WHERE title NOT LIKE 'W%';
+-- > GREATER THAN 
+SELECT title FROM books WHERE released_year > 2000;
+-- >= GREATER THAN OR EQUAL TO
+SELECT title FROM books WHERE quantity >= 0;
+-- < LESS THAN 
+SELECT title FROM books WHERE released_year < 2010;
+-- <= LESS THAN OR EQUAL TO
+SELECT title FROM books WHERE released_year <=2000;
+-- && LOGICAL AND chains together logical functions equivalent of AND
+SELECT * FROM books WHERE author_lname='Eggers' && released_year > 2010;
