@@ -117,3 +117,20 @@ SELECT title FROM books WHERE released_year < 2010;
 SELECT title FROM books WHERE released_year <=2000;
 -- && LOGICAL AND chains together logical functions equivalent of AND
 SELECT * FROM books WHERE author_lname='Eggers' && released_year > 2010;
+-- || LOGICAL OR equivalent of OR connects two operators together
+SELECT * FROM books WHERE author_lname="Eggers" || released_year > 2000;
+-- BETWEEN picks up values in range
+SELECT title FROM books WHERE released_year BETWEEN 2000 AND 2010;
+-- NOT BETWEEN picks up all values outside of the specified range
+SELECT title FROM books WHERE released_year NOT BETWEEN 2000 AND 2010;
+-- IN provides set of values for WHERE clause
+SELECT title, released_year FROM books WHERE released_year IN (2000, 1985, 2013);
+-- NOT IN opposite of IN
+SELECT title, released_year FROM books WHERE released_year NOT IN (1998, 2001, 2007);
+-- CASE STATEMENTS allows for conditional decisionmaking
+SELECT title, released_year
+	CASE 
+		WHEN released_year >= 2000 THEN 'condition1'
+		ELSE 'condition2'
+	END AS alias
+FROM books;
