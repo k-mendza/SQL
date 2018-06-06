@@ -169,4 +169,37 @@ FROM customers
 JOIN orders ON customers.id = customer_id
 GROUP BY orders.customer_id
 ORDER BY total_spent DESC;
+
+-- LEFT JOIN EXAMPLE
+SELECT
+	first_name,
+	last_name,
+	order_date,
+	IFNULL(SUM(amount), 0) AS total_spent
+FROM customers
+LEFT, JOIN orders ON customers.id = customer_id
+GROUP BY orders.customer_id
+ORDER BY total_spent DESC;
+
+-- MANY TO MANY RELATION 
+
+CREATE TABLE series(
+	id INT AUTO_INCREMENT PRIMARY KEY,
+	title VARCHAR(100),
+	released_year INT,
+	genre VARCHAR(100)
+);
+
+CREATE TABLE reviewers(
+	id INT AUTO_INCREMENT PRIMARY KEY,
+	first_name VARCHAR(100),
+	last_name VARCHAR(100)
+);
+-- join table which is crusial for many to many
+CREATE TABLE reviews(
+	id INT AUTO_INCREMENT PRIMARY KEY,
+	rating DECIMAL(2,1),
+	reviewer_id INT FOREIGN KEY REFERENCES reviewers.id,
+	series_id INT FOREIGN KEY REFERENCES series.id
+);
 	
