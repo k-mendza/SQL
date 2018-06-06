@@ -134,3 +134,39 @@ SELECT title, released_year
 		ELSE 'condition2'
 	END AS alias
 FROM books;
+-- ONE TO MANY RELATION
+-- ONE SIDE TABLE
+CREATE TABLE customers (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+	first_name VARCHAR (100),
+	last_name VARCHAR(100),
+	email VARCHAR(100)
+);
+-- MANY SIDE TABLE with reference to foreign primary key
+CREATE TABLE orders (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+	order_date DATE,
+	amount DECIMAL(8,2),
+	customer_id INT,
+	FOREIGN KEY(customer_id) REFERENCES customers.id
+);
+-- CROSS JOIN with WHERE clause
+SELECT * FROM customers, orders
+WHERE customers.id = customer_id;
+-- this can be simplified to 
+SELECT * 
+FROM customers
+JOIN orders
+ON customers.id = orders.customer_id;
+-- thanks to JOIN command
+-- now to show the table with customer that spent the most on the top
+SELECT
+	first_name,
+	last_name,
+	order_date,
+	SUM(amount) AS total_spent
+FROM customers
+JOIN orders ON customers.id = customer_id
+GROUP BY orders.customer_id
+ORDER BY total_spent DESC;
+	
