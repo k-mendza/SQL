@@ -186,7 +186,7 @@ ORDER BY total_spent DESC;
 CREATE TABLE series(
 	id INT AUTO_INCREMENT PRIMARY KEY,
 	title VARCHAR(100),
-	released_year INT,
+	released_year YEAR(4),
 	genre VARCHAR(100)
 );
 
@@ -202,4 +202,43 @@ CREATE TABLE reviews(
 	reviewer_id INT FOREIGN KEY REFERENCES reviewers.id,
 	series_id INT FOREIGN KEY REFERENCES series.id
 );
-	
+-- instagram DB clone in PostgreSQL
+
+CREATE TABLE public.users(
+	id SERIAL PRIMARY KEY,
+	username VARCHAR(255) UNIQUE,
+	created_at TIMESTAMP DEFAULT NOW()
+	);
+-- please not that TIMESTAMP without timezone is an mistake
+INSERT INTO public.users(username)
+VALUES('BlueTheCAt'), ('CharlieBrown'), ('ColtSteele');
+
+CREATE TABLE public.photos (
+	id SERIAL PRIMARY KEY,
+	image_url VARCHAR(255) NOT NULL,
+	user_id INT NOT NULL,
+	created_at TIMESTAMP DEFAULT NOW(),
+	FOREIGN KEY(user_id) REFERENCES public.users(id)
+);
+
+INSERT INTO public.photos(image_url, user_id)
+VALUES ('http://link1',1), ('http://link2',2), ('http://link3',2);
+-- to check the data:
+SELECT * FROM public.users
+JOIN public.photos 
+ON public.photos.user_id=public.users.id;
+-- table comments
+
+CREATE TABLE public.comments (
+	id SERIAL PRIMARY KEY,
+	comment_text VARCHAR(255) NOT NULL,
+	user_id INT NOT NULL,
+	photo_id INT NOT NULL,
+	created_at TIMESTAMP DEFAULT NOW(),
+	FOREIGN KEY(user_id) REFERENCES public.users(id),
+	FOREIGN KEY(photo_id) REFERENCES public.photos(id)
+);
+
+INSERT INTO public.comments(comment_text, user_id, photo_id)
+VALUES ('Meow!',1,2),('Amazing shot!', 3,2), ('I <3 this', 2, 1);
+
