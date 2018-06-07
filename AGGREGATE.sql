@@ -242,3 +242,24 @@ CREATE TABLE public.comments (
 INSERT INTO public.comments(comment_text, user_id, photo_id)
 VALUES ('Meow!',1,2),('Amazing shot!', 3,2), ('I <3 this', 2, 1);
 
+-- table likes
+
+CREATE TABLE public.likes (
+	user_id INT NOT NULL,
+	photo_id INT NOT NULL,
+	created_at TIMESTAMP DEFAULT NOW(),
+	FOREIGN KEY(user_id) REFERENCES public.users(id),
+	FOREIGN KEY(photo_id) REFERENCES public.photos(id),
+	PRIMARY KEY(user_id, photo_id)
+);
+
+-- table follows
+
+CREATE TABLE public.follows (
+	follower_id INT NOT NULL,
+	followee_id INT NOT NULL,
+	created_at TIMESTAMP DEFAULT NOW(),
+	FOREIGN KEY(follower_id) REFERENCES public.users(id),
+	FOREIGN KEY(followee_id) REFERENCES public.users(id),
+	PRIMARY KEY(follower_id, followee_id)
+);
